@@ -78,6 +78,10 @@ name, id, department, time, date, status
 - Train again after adding new employees
 - Good lighting improves accuracy
 - Each employee is marked once per day
+  
+## Author 👨‍💻
+- [Bipra_Biswas](https://github.com/Bipra09)
 
 ## License
 MIT
+
