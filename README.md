@@ -1,21 +1,83 @@
-# attendance_Management_system
-The goal of this project is to create a powerful facial recognition module that can reliably identify workers by analyzing their facial characteristics. This system, which is integrated with an easy-to-use attendance management application, enables staff members to check in and out with just a facial scan.
+# Face Recognition Attendance Management System
 
-# Key Features:
-Real-time Face Detection
-Home Page
-Student Management System: Save, Take Photo Samples, Update, Delete, Reset
-Train Photo Samples
-Take Attendance with Face Detection
-Attendance Report: Export to Excel file & MySQL database
-Developer Page
-Help Desk
-Exit System
+Desktop app that marks employee attendance using face recognition. Staff check in with a face scan, and records are saved to CSV and can be exported to Excel.
 
-# Technologies Used:
-Python, Tkinter GUI, OpenCV
-Haarcascade (Object Detection)
-LBPH (Face Recognition)
-MySQL Database
+## Features
+- Employee management: add, update, delete, reset, search
+- Capture face photo samples via webcam
+- Train the face classifier
+- Real-time face detection and recognition
+- Auto-marked attendance (name, ID, department, time, date, status)
+- Attendance report: import/export CSV
 
-This project is ideal for managing attendance in educational institutions, ensuring accurate and efficient record-keeping.
+## Tech Stack
+- Python, Tkinter (GUI)
+- OpenCV: Haar Cascade (detection), LBPH (recognition)
+- MySQL (employee data)
+- Pillow, NumPy
+
+## Project Structure
+├── main.py # home screen
+├── employee.py # employee CRUD + photo capture
+├── train.py # trains LBPH classifier
+├── face_recognition.py # live recognition + attendance
+├── attendance.py # attendance report (CSV)
+├── haarcascade_frontalface_default.xml
+├── attend.csv # attendance log
+└── data/ # face samples (auto-created)
+
+
+## Requirements
+- Python 3.8+
+- MySQL Server
+- Webcam
+
+```bash
+pip install opencv-contrib-python numpy pillow mysql-connector-python
+```
+
+## Setup
+
+**1. Database**
+```sql
+CREATE DATABASE face_detect;
+USE face_detect;
+CREATE TABLE employee_data (
+  empid INT PRIMARY KEY,
+  name VARCHAR(100),
+  gender VARCHAR(20),
+  phoneno VARCHAR(20),
+  email VARCHAR(100),
+  `add` VARCHAR(255),
+  dept VARCHAR(100),
+  post VARCHAR(100),
+  ro VARCHAR(100),
+  photosample VARCHAR(10)
+);
+```
+
+**2. Configure**
+- Set your MySQL username/password in `employee.py`, `train.py`, `face_recognition.py`
+- Replace hardcoded image paths (`C:\Users\...\images\`) with your own `images/` folder
+
+**3. Run**
+```bash
+python main.py
+```
+
+## Usage
+1. **Employee Details**: fill in the form → Save → Take Photo Sample
+2. **Train Data**: generates `classifier.xml`
+3. **Face Detector**: opens webcam and marks attendance on recognition (press `Enter` to exit)
+4. **Attendance**: view, import, or export records
+
+## Attendance Format
+name, id, department, time, date, status
+
+## Notes
+- Train again after adding new employees
+- Good lighting improves accuracy
+- Each employee is marked once per day
+
+## License
+MIT
